@@ -1,6 +1,7 @@
 package com.githiomi.inkvibe.services.implementations;
 
 import com.githiomi.inkvibe.data.models.Blog;
+import com.githiomi.inkvibe.exceptions.BlogException;
 import com.githiomi.inkvibe.repositories.BlogRepository;
 import com.githiomi.inkvibe.services.BlogService;
 import org.springframework.stereotype.Service;
@@ -35,14 +36,14 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Blog getBlogById(UUID id) {
-        return this.blogRepository.findById(id).orElseThrow( () -> new RuntimeException("No blog found with id: " + id));
+    public Blog getBlogById(UUID id) throws BlogException {
+        return this.blogRepository.findById(id).orElseThrow( () -> new BlogException("Blog with ID: {" + id +"} does not exist."));
     }
 
     @Override
-    public Blog updateBlogById(UUID id, Blog blog) {
+    public Blog updateBlogById(UUID id, Blog blog) throws BlogException{
         // First check if the blog with id exists
-        Blog foundBlog = this.blogRepository.findById(id).orElseThrow( () -> new RuntimeException("Blog not found with id: " + id));
+        Blog foundBlog = getBlogById(id);
 
         foundBlog.setId(id);
         foundBlog.setTitle(blog.getTitle());
