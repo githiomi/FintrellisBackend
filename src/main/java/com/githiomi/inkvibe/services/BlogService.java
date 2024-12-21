@@ -1,13 +1,17 @@
 package com.githiomi.inkvibe.services;
 
-import com.githiomi.inkvibe.data.records.Blog;
-import org.springframework.stereotype.Service;
+import com.githiomi.inkvibe.data.models.Blog;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface BlogService {
 
-    void saveBlog(Blog blog);
+    Blog saveBlog(Blog blog);
 
     void saveAllBlogs(List<Blog> blogs);
+
+    List<Blog> getAllBlogs();
+
+    Blog getBlogById(UUID id);
 }
