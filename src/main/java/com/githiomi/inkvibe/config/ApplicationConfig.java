@@ -18,10 +18,6 @@ public class ApplicationConfig {
     @ConditionalOnProperty(prefix = "app", name = "manual.db.populate", havingValue = "true")
     CommandLineRunner commandLineRunner(BlogService blogService) {
         return args -> {
-
-            Category category = Category.valueOf("SPORTS");
-            System.out.println("Category: " + category);
-
             // Create dummy blogs
             blogService.saveAllBlogs(
                     Arrays.asList(

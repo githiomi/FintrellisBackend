@@ -52,4 +52,14 @@ public class BlogServiceImpl implements BlogService {
 
         return this.blogRepository.save(foundBlog);
     }
+
+    @Override
+    public void deleteBlogById(UUID id) {
+        this.blogRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteAllBlogs() {
+        this.blogRepository.deleteAll();
+    }
 }

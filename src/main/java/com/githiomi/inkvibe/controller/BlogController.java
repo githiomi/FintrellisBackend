@@ -41,4 +41,16 @@ public class BlogController {
         return ResponseEntity.status(OK).body(this.blogService.updateBlogById(id, blog));
     }
 
+    @DeleteMapping("")
+    public ResponseEntity<String> deleteAllBlogs() {
+        this.blogService.deleteAllBlogs();
+        return ResponseEntity.status(OK).body("All Blogs have been deleted successfully");
+    }
+
+    @DeleteMapping("/{blogId}")
+    public ResponseEntity<String> deleteBlog(@PathVariable("blogId") UUID id) {
+        this.blogService.deleteBlogById(id);
+        return ResponseEntity.status(OK).body("Blog with id: {" + id + "} has been deleted");
+    }
+
 }

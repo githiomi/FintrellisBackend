@@ -16,4 +16,8 @@ public interface BlogService {
     Blog getBlogById(UUID id);
 
     Blog updateBlogById(UUID id, Blog blog);
+
+    void deleteBlogById(UUID id);
+
+    void deleteAllBlogs();
 }
