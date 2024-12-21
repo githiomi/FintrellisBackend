@@ -37,11 +37,11 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog getBlogById(UUID id) throws BlogException {
-        return this.blogRepository.findById(id).orElseThrow( () -> new BlogException("Blog with ID: {" + id +"} does not exist."));
+        return this.blogRepository.findById(id).orElseThrow(() -> new BlogException("Blog with ID: {" + id + "} was not found in the database."));
     }
 
     @Override
-    public Blog updateBlogById(UUID id, Blog blog) throws BlogException{
+    public Blog updateBlogById(UUID id, Blog blog) throws BlogException {
         // First check if the blog with id exists
         Blog foundBlog = getBlogById(id);
 
@@ -56,6 +56,9 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public void deleteBlogById(UUID id) {
+        if (this.blogRepository.findById(id).isEmpty())
+            throw new BlogException("Delete Unsuccessful. Blog with ID: {" + id + "} was not found in the database.");
+
         this.blogRepository.deleteById(id);
     }
 

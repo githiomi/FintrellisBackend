@@ -59,7 +59,7 @@ public class BlogController {
     @DeleteMapping("/{blogId}")
     public ResponseEntity<ApiResponse<String>> deleteBlog(@PathVariable("blogId") UUID id) {
         this.blogService.deleteBlogById(id);
-        return ResponseEntity.status(OK).body(new ApiResponse<>("Blog with id: {" + id + "} has been deleted", DATA_RESPONSE));
+        return ResponseEntity.status(OK).body(new ApiResponse<>("Blog with id: {" + id + "} was deleted successfully.", DATA_RESPONSE));
     }
 
 }
