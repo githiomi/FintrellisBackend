@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Arrays;
+
 @Configuration
 public class ApplicationConfig {
 
@@ -16,10 +18,15 @@ public class ApplicationConfig {
     @ConditionalOnProperty(prefix = "app", name = "manual.db.populate", havingValue = "true")
     CommandLineRunner commandLineRunner(BlogService blogService) {
         return args -> {
-            System.out.println("Hello World");
+
+            Category category = Category.valueOf("SPORTS");
+            System.out.println("Category: " + category);
 
             // Create dummy blogs
-            blogService.saveBlog(new Blog("Blog Post 1", Category.ART));
+            blogService.saveAllBlogs(
+                    Arrays.asList(
+                            new Blog("Blog Post 1", Category.ART),
+                            new Blog("Blog Test 2", Category.MUSIC)));
         };
     }
 }

@@ -1,6 +1,5 @@
 package com.githiomi.inkvibe.controller;
 
-import com.githiomi.inkvibe.data.DTOs.BlogDTO;
 import com.githiomi.inkvibe.data.models.Blog;
 import com.githiomi.inkvibe.services.BlogService;
 import org.springframework.http.HttpStatus;
@@ -8,7 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("api/v1/blog")
@@ -22,13 +23,22 @@ public class BlogController {
 
     @GetMapping("")
     public ResponseEntity<List<Blog>> getAllBlogs() {
-        return new ResponseEntity<>(this.blogService.getAllBlogs(), HttpStatus.OK);
+        return new ResponseEntity<>(this.blogService.getAllBlogs(), OK);
+    }
+
+    @GetMapping("/{blogId}")
+    public ResponseEntity<Blog> getBlogById(@PathVariable("blogId") UUID id) {
+        return ResponseEntity.status(OK).body(this.blogService.getBlogById(id));
     }
 
     @PostMapping("")
     public ResponseEntity<Blog> createBlog(@RequestBody Blog blog) {
-        Blog createdBlog = this.blogService.saveBlog(blog);
-        return new ResponseEntity<>(createdBlog, HttpStatus.CREATED);
+        return new ResponseEntity<>(this.blogService.saveBlog(blog), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{blogId}")
+    public ResponseEntity<Blog> updateBlog(@PathVariable("blogId") UUID id, @RequestBody Blog blog) {
+        return ResponseEntity.status(OK).body(this.blogService.updateBlogById(id, blog));
     }
 
 }

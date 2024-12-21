@@ -39,5 +39,17 @@ public class BlogServiceImpl implements BlogService {
         return this.blogRepository.findById(id).orElseThrow( () -> new RuntimeException("No blog found with id: " + id));
     }
 
+    @Override
+    public Blog updateBlogById(UUID id, Blog blog) {
+        // First check if the blog with id exists
+        Blog foundBlog = this.blogRepository.findById(id).orElseThrow( () -> new RuntimeException("Blog not found with id: " + id));
 
+        foundBlog.setId(id);
+        foundBlog.setTitle(blog.getTitle());
+        foundBlog.setCategory(blog.getCategory());
+        foundBlog.setCreatedAt(blog.getCreatedAt());
+        foundBlog.setLastUpdatedAt(LocalDateTime.now());
+
+        return this.blogRepository.save(foundBlog);
+    }
 }

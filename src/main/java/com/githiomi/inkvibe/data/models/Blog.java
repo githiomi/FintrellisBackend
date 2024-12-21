@@ -16,6 +16,7 @@ public class Blog {
     private String title;
     private String category;
     private LocalDateTime createdAt;
+    private LocalDateTime lastUpdatedAt;
 
     public Blog() {
     }
@@ -24,6 +25,7 @@ public class Blog {
         this.title = title;
         this.category = category.name();
         this.createdAt = LocalDateTime.now();
+        this.lastUpdatedAt = null;
     }
 
     public UUID getId() {
@@ -47,7 +49,7 @@ public class Blog {
     }
 
     public void setCategory(String category) {
-        this.category = category;
+        this.category = Category.valueOf(category.toUpperCase()).name();
     }
 
     public LocalDateTime getCreatedAt() {
@@ -56,6 +58,14 @@ public class Blog {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getLastUpdatedAt() {
+        return lastUpdatedAt;
+    }
+
+    public void setLastUpdatedAt(LocalDateTime lastUpdatedAt) {
+        this.lastUpdatedAt = lastUpdatedAt;
     }
 
     @Override

@@ -14,4 +14,6 @@ public interface BlogService {
     List<Blog> getAllBlogs();
 
     Blog getBlogById(UUID id);
+
+    Blog updateBlogById(UUID id, Blog blog);
 }
