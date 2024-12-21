@@ -1,11 +1,9 @@
 package com.githiomi.inkvibe.controller;
 
-import com.githiomi.inkvibe.data.enums.ResponseType;
 import com.githiomi.inkvibe.data.models.ApiResponse;
 import com.githiomi.inkvibe.data.models.Blog;
-import com.githiomi.inkvibe.exceptions.BlogException;
+import com.githiomi.inkvibe.exceptions.ApiException;
 import com.githiomi.inkvibe.services.BlogService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,8 +31,14 @@ public class BlogController {
     }
 
     @GetMapping("/{blogId}")
-    public ResponseEntity<ApiResponse<Blog>> getBlogById(@PathVariable("blogId") UUID id) throws BlogException {
+    public ResponseEntity<ApiResponse<Blog>> getBlogById(@PathVariable("blogId") UUID id) throws ApiException {
         ApiResponse<Blog> response = new ApiResponse<>(this.blogService.getBlogById(id), DATA_RESPONSE);
+        return new ResponseEntity<>(response, OK);
+    }
+
+    @GetMapping("/user/{username}")
+    public ResponseEntity<ApiResponse<List<Blog>>> getBlogsByUsername(@PathVariable("username") String username) {
+        ApiResponse<List<Blog>> response = new ApiResponse<>(this.blogService.getBlogsByUsername(username.toUpperCase()), DATA_RESPONSE);
         return new ResponseEntity<>(response, OK);
     }
 
@@ -45,7 +49,7 @@ public class BlogController {
     }
 
     @PutMapping("/{blogId}")
-    public ResponseEntity<ApiResponse<Blog>> updateBlog(@PathVariable("blogId") UUID id, @RequestBody Blog blog) throws BlogException {
+    public ResponseEntity<ApiResponse<Blog>> updateBlog(@PathVariable("blogId") UUID id, @RequestBody Blog blog) throws ApiException {
         ApiResponse<Blog> response = new ApiResponse<>(this.blogService.updateBlogById(id, blog), DATA_RESPONSE);
         return ResponseEntity.status(OK).body(response);
     }

@@ -14,15 +14,19 @@ public class Blog {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String title;
+    private String author;
     private String category;
+    private int likeCounter;
     private LocalDateTime createdAt;
     private LocalDateTime lastUpdatedAt;
 
     public Blog() {
     }
 
-    public Blog(String title, Category category) {
+    public Blog(String title, String author, Category category) {
         this.title = title;
+        this.author = author;
+        this.likeCounter = 0;
         this.category = category.name();
         this.createdAt = LocalDateTime.now();
         this.lastUpdatedAt = null;
@@ -44,12 +48,28 @@ public class Blog {
         this.title = title;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public String getCategory() {
         return category;
     }
 
     public void setCategory(String category) {
-        this.category = Category.valueOf(category.toUpperCase()).name();
+        this.category = category;
+    }
+
+    public int getLikeCounter() {
+        return likeCounter;
+    }
+
+    public void setLikeCounter(int likeCounter) {
+        this.likeCounter = likeCounter;
     }
 
     public LocalDateTime getCreatedAt() {

@@ -1,7 +1,7 @@
 package com.githiomi.inkvibe.services;
 
 import com.githiomi.inkvibe.data.models.Blog;
-import com.githiomi.inkvibe.exceptions.BlogException;
+import com.githiomi.inkvibe.exceptions.ApiException;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,11 +14,14 @@ public interface BlogService {
 
     List<Blog> getAllBlogs();
 
-    Blog getBlogById(UUID id) throws BlogException;
+    List<Blog> getBlogsByUsername(String username);
 
-    Blog updateBlogById(UUID id, Blog blog) throws BlogException;
+    Blog getBlogById(UUID id) throws ApiException;
+
+    Blog updateBlogById(UUID id, Blog blog) throws ApiException;
 
     void deleteBlogById(UUID id);
 
     void deleteAllBlogs();
+
 }
