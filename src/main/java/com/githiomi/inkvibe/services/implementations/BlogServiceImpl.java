@@ -24,8 +24,12 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog saveBlog(Blog blog) {
+
+        if (this.userService.findUserByUsername(blog.getAuthor()) == null) throw new ApiException("Blog not created. No user with username: {" + blog.getAuthor() + "} was found in the database.");
+
         blog.setLikeCounter(0);
         blog.setCreatedAt(LocalDateTime.now());
+
         return blogRepository.save(blog);
     }
 

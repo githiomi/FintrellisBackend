@@ -4,8 +4,10 @@ import com.githiomi.inkvibe.data.models.User;
 import com.githiomi.inkvibe.exceptions.ApiException;
 import com.githiomi.inkvibe.repositories.UserRepository;
 import com.githiomi.inkvibe.services.UserService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -15,6 +17,11 @@ public class UserServiceImpl implements UserService {
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return this.userRepository.findAll(Sort.by(Sort.Direction.ASC, "username"));
     }
 
     @Override
