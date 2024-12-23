@@ -36,8 +36,8 @@ public class BlogController {
         return new ResponseEntity<>(response, OK);
     }
 
-    @GetMapping("/user/{username}")
-    public ResponseEntity<ApiResponse<List<Blog>>> getBlogsByUsername(@PathVariable("username") String username) {
+    @GetMapping("/user")
+    public ResponseEntity<ApiResponse<List<Blog>>> getBlogsByUsername(@RequestParam("username") String username) {
         ApiResponse<List<Blog>> response = new ApiResponse<>(this.blogService.getBlogsByUsername(username.toUpperCase()), DATA_RESPONSE);
         return new ResponseEntity<>(response, OK);
     }
