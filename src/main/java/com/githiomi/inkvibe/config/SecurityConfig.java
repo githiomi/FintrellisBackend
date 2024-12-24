@@ -29,7 +29,8 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
-                    auth.anyRequest().authenticated();
+                    auth.requestMatchers("/api/v1/**").authenticated();
+                    auth.anyRequest().permitAll();
                 })
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
@@ -51,24 +52,6 @@ public class SecurityConfig {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(5);
     }
-
-//    @Bean
-//    AuthenticationProvider authenticationProvider() {
-//        DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
-//        daoProvider.setUserDetailsService(this.userService);
-//        daoProvider.setPasswordEncoder(passwordEncoder());
-//        return daoProvider;
-//    }
-
-//    @Bean
-//    public AuthenticationFailureHandler authenticationFailureHandler() {
-//        return new CustomAuthenticationFailureHandler();
-//    }
-//
-//    @Bean
-//    public AccessDeniedHandler accessDeniedHandler() {
-//        return new CustomAuthorizationErrorHandler();
-//    }
 
     @Bean
     UserDetailsService inMemoryUsers() {
