@@ -1,6 +1,6 @@
 package com.githiomi.inkvibe.exceptions;
 
-import com.githiomi.inkvibe.data.models.ApiResponse;
+import com.githiomi.inkvibe.data.models.RestResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,15 +16,15 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(ApiException.class)
     @ResponseStatus(BAD_REQUEST)
-    public ResponseEntity<ApiResponse<String>> handleBlogNotFoundException(ApiException ex) {
-        ApiResponse<String> response = new ApiResponse<>(ex.getMessage(), EXCEPTION);
+    public ResponseEntity<RestResponse<String>> handleBlogNotFoundException(ApiException ex) {
+        RestResponse<String> response = new RestResponse<>(ex.getMessage(), EXCEPTION);
         return new ResponseEntity<>(response, BAD_REQUEST);
     }
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(BAD_REQUEST)
-    public ResponseEntity<ApiResponse<String>> handleRuntimeException(RuntimeException ex) {
-        ApiResponse<String> response = new ApiResponse<>(ex.getMessage(), EXCEPTION);
+    public ResponseEntity<RestResponse<String>> handleRuntimeException(RuntimeException ex) {
+        RestResponse<String> response = new RestResponse<>(ex.getMessage(), EXCEPTION);
         return ResponseEntity.status(BAD_REQUEST).body(response);
     }
 }

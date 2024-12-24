@@ -4,12 +4,12 @@ import com.githiomi.inkvibe.data.enums.ResponseType;
 
 import java.time.LocalDateTime;
 
-public class ApiResponse<T> {
+public class RestResponse<T> {
     T body;
     LocalDateTime timestamp;
     ResponseType responseType;
 
-    public ApiResponse(T body, ResponseType responseType) {
+    public RestResponse(T body, ResponseType responseType) {
         this.body = body;
         this.responseType = responseType;
         this.timestamp = LocalDateTime.now();

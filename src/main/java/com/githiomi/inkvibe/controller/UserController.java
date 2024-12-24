@@ -1,9 +1,10 @@
 package com.githiomi.inkvibe.controller;
 
 import com.githiomi.inkvibe.data.enums.ResponseType;
-import com.githiomi.inkvibe.data.models.ApiResponse;
+import com.githiomi.inkvibe.data.models.RestResponse;
 import com.githiomi.inkvibe.data.models.User;
 import com.githiomi.inkvibe.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,9 @@ public class UserController {
     }
 
     @GetMapping("")
-    public ResponseEntity<ApiResponse<List<User>>> getAllActiveUsers() {
-        return ResponseEntity.status(OK).body(new ApiResponse<>(this.userService.getAllUsers(), ResponseType.DATA_RESPONSE));
+    @Operation(summary = "List all users", description = "Get a list of all the users in the database")
+    public ResponseEntity<RestResponse<List<User>>> getAllActiveUsers() {
+        return ResponseEntity.status(OK).body(new RestResponse<>(this.userService.getAllUsers(), ResponseType.DATA_RESPONSE));
     }
 
 }
