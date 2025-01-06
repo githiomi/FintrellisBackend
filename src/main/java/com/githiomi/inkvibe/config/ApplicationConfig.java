@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 @Configuration
 public class ApplicationConfig {
@@ -20,15 +22,17 @@ public class ApplicationConfig {
     @ConditionalOnProperty(prefix = "app", name = "manual.db.populate", havingValue = "true")
     CommandLineRunner commandLineRunner(UserService userService, BlogService blogService) {
         return args -> {
-            userService.saveUser(
-                    new User("Daniel", "Githiomi")
-            );
+
+            Stream.of(
+                    new User("Daniel", "Githiomi", "D@niel123"),
+                    new User("Nabila", "Modan", "Mod@n123")
+            ).forEach(userService::saveUser);
 
             // Create dummy blogs
             blogService.saveAllBlogs(
                     Arrays.asList(
                             new Blog("Blog Post 1", "DANGIT", Category.ART),
-                            new Blog("Blog Test 2", "DANGIT", Category.MUSIC)));
+                            new Blog("Blog Test 2", "NABMOD", Category.MUSIC)));
         };
     }
 }

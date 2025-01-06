@@ -16,9 +16,10 @@ import static com.githiomi.inkvibe.data.enums.ResponseType.DATA_RESPONSE;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
-@Tag(name = "Blog", description = "CRUD operations for Blogs")
 @RestController
+@CrossOrigin(origins = {"*"})
 @RequestMapping("api/v1/blog")
+@Tag(name = "Blog", description = "CRUD operations for Blogs")
 public class BlogController {
 
     private final BlogService blogService;

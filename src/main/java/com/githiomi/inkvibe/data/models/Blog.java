@@ -1,13 +1,23 @@
 package com.githiomi.inkvibe.data.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.githiomi.inkvibe.data.enums.Category;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Data
+@Slf4j
 @Entity
+@SuperBuilder
 @Table(name = "blogs")
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Blog {
 
     @Id
@@ -19,9 +29,6 @@ public class Blog {
     private int likeCounter;
     private LocalDateTime createdAt;
     private LocalDateTime lastUpdatedAt;
-
-    public Blog() {
-    }
 
     public Blog(String title, String author, Category category) {
         this.title = title;
@@ -86,15 +93,5 @@ public class Blog {
 
     public void setLastUpdatedAt(LocalDateTime lastUpdatedAt) {
         this.lastUpdatedAt = lastUpdatedAt;
-    }
-
-    @Override
-    public String toString() {
-        return "Blog{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", category='" + category + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
     }
 }
