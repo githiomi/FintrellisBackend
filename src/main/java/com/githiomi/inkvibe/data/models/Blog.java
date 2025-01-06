@@ -16,7 +16,6 @@ import java.util.UUID;
 @Entity
 @SuperBuilder
 @Table(name = "blogs")
-@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Blog {
 
@@ -29,6 +28,8 @@ public class Blog {
     private int likeCounter;
     private LocalDateTime createdAt;
     private LocalDateTime lastUpdatedAt;
+
+    public Blog(){}
 
     public Blog(String title, String author, Category category) {
         this.title = title;
